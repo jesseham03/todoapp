@@ -17,47 +17,34 @@ class TaskManager
 
     public void ShowTasks()
     {
-        foreach (var task in tasks)
+        for (int i = 0; i < tasks.Count; i++)
         {
-            Console.WriteLine($"{task.Title} - {(task.IsCompleted ? "Completed" :"Not Completed")}");
+            var task = tasks[i];
+            Console.WriteLine($"{i + 1}. {task.Title} - {(task.IsCompleted ? "completed" : "not completed")}");
         }
     }
 
-    public void CompleteTask(string title)
+    public void CompleteTask(string index)
     {
-        if(title != "")
+        if(index != "")
         {
-            foreach (var task in tasks)
-            {
-                if (task.Title == title)
-                {   
-                task.IsCompleted = true;
-                break;
-                }
-            }
+            tasks[int.Parse(index) - 1].IsCompleted = true;
         }
         else
         {
-            Console.WriteLine("Task title cannot be empty.");
+            Console.WriteLine("Task index cannot be empty.");
         }
     }
 
-    public void DeleteTask(string title)
+    public void DeleteTask(string index)
     {
-        if(title != "")
+        if(index != "")
         {
-            foreach (var task in tasks)
-            {
-                if (task.Title == title)
-                {
-                    tasks.Remove(task);
-                    break;
-                }
-            }
+            tasks.Remove(tasks[int.Parse(index) -1 ]);
         }
         else
         {
-            Console.WriteLine("Task title cannot be empty.");
+            Console.WriteLine("Task index cannot be empty.");
         }
     }
 }
