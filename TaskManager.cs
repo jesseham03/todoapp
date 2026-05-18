@@ -6,7 +6,13 @@ class TaskManager
 
     public void AddTask(string title)
     {
-        tasks.Add(new TodoTask { Title = title, IsCompleted = false });
+        if(title != "")
+        {tasks.Add(new TodoTask { Title = title, IsCompleted = false });
+        }
+        else
+        {
+            Console.WriteLine("Task title cannot be empty.");
+        }
     }
 
     public void ShowTasks()
@@ -19,25 +25,39 @@ class TaskManager
 
     public void CompleteTask(string title)
     {
-        foreach (var task in tasks)
+        if(title != "")
         {
-            if (task.Title == title)
+            foreach (var task in tasks)
             {
+                if (task.Title == title)
+                {   
                 task.IsCompleted = true;
                 break;
+                }
             }
+        }
+        else
+        {
+            Console.WriteLine("Task title cannot be empty.");
         }
     }
 
     public void DeleteTask(string title)
     {
-        foreach (var task in tasks)
+        if(title != "")
         {
-            if (task.Title == title)
+            foreach (var task in tasks)
             {
-                tasks.Remove(task);
-                break;
-            }        
+                if (task.Title == title)
+                {
+                    tasks.Remove(task);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("Task title cannot be empty.");
         }
     }
 }
