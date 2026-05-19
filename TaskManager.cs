@@ -4,10 +4,16 @@ class TaskManager
 {
     private List<TodoTask> tasks = new List<TodoTask>();
 
+    public TaskManager(List<TodoTask> loadedTasks)
+    {
+        tasks = loadedTasks;
+    }
     public void AddTask(string title)
     {
         if(title != "")
-        {tasks.Add(new TodoTask { Title = title, IsCompleted = false });
+        {
+            tasks.Add(new TodoTask { Title = title, IsCompleted = false });
+            StorageService.SaveTasks(tasks, "tasks.json");
         }
         else
         {
@@ -29,6 +35,7 @@ class TaskManager
         if(index != "")
         {
             tasks[int.Parse(index) - 1].IsCompleted = true;
+            StorageService.SaveTasks(tasks, "tasks.json");
         }
         else
         {
@@ -41,6 +48,7 @@ class TaskManager
         if(index != "")
         {
             tasks.Remove(tasks[int.Parse(index) -1 ]);
+            StorageService.SaveTasks(tasks, "tasks.json");
         }
         else
         {

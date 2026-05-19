@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics;
 
 bool isRunning = true;
-TaskManager taskManager = new TaskManager();
+List<TodoTask> loadedTasks = StorageService.LoadTasks("tasks.json");
+TaskManager taskManager = new TaskManager(loadedTasks);
 Console.WriteLine("Welcome to the Todo App");
 
 while (isRunning)
