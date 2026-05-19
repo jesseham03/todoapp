@@ -1,3 +1,4 @@
+//in this class we create the template for tasks 
 class TodoTask
 {
     public required string Title { get; set;}

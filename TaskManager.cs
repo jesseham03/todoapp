@@ -1,13 +1,18 @@
 using System.Runtime.CompilerServices;
 
+//in this class all the functions of tasks will be handled, such as adding, showing, completing and deleting tasks. 
 class TaskManager
 {
+    //first we create a list, where we store our tasks
     private List<TodoTask> tasks = new List<TodoTask>();
 
+    //constructor that we use to load in the tasks from json file
     public TaskManager(List<TodoTask> loadedTasks)
     {
         tasks = loadedTasks;
     }
+
+    //method to add a task to the list we created. Also stores the list in a json file after
     public void AddTask(string title)
     {
         if(title != "")
@@ -21,6 +26,7 @@ class TaskManager
         }
     }
 
+    //method to show the tasks in the list, using index 
     public void ShowTasks()
     {
         for (int i = 0; i < tasks.Count; i++)
@@ -30,6 +36,7 @@ class TaskManager
         }
     }
 
+    //method to mark a task as completed, using index. Also stores the list in a json file after
     public void CompleteTask(string index)
     {
         if(index != "")
@@ -43,6 +50,7 @@ class TaskManager
         }
     }
 
+    //method to delete a task, using index. Also stores the list in a json file after
     public void DeleteTask(string index)
     {
         if(index != "")
