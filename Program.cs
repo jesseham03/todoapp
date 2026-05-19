@@ -1,10 +1,12 @@
 ﻿using System.Diagnostics;
+//in this file we handle user input and main loop of program
 
 bool isRunning = true;
 List<TodoTask> loadedTasks = StorageService.LoadTasks("tasks.json");
 TaskManager taskManager = new TaskManager(loadedTasks);
 Console.WriteLine("Welcome to the Todo App");
 
+//main loop
 while (isRunning)
 {   
     Console.WriteLine("choose an option and enter a number:");
