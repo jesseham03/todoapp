@@ -13,11 +13,24 @@ class TaskManager
     }
 
     //method to add a task to the list we created. Also stores the list in a json file after
-    public void AddTask(string title)
+    public void AddTask(string title, string priorityInput)
     {
         if(title != "")
         {
-            tasks.Add(new TodoTask { Title = title, IsCompleted = false });
+            Priority priority = Priority.Medium;
+            switch (priorityInput.ToLower())
+            {
+                case "low":
+                    priority = Priority.Low;
+                    break;
+                case "medium":
+                    priority = Priority.Medium;
+                    break;
+                case "high": 
+                    priority = Priority.High;
+                    break;
+            }
+            tasks.Add(new TodoTask { Title = title, IsCompleted = false, Priority = priority});
             StorageService.SaveTasks(tasks, "tasks.json");
         }
         else
@@ -34,7 +47,7 @@ class TaskManager
             for (int i = 0; i < tasks.Count; i++)
             {
             var task = tasks[i];
-            Console.WriteLine($"{i + 1}. {task.Title} - {(task.IsCompleted ? "completed" : "not completed")}");
+            Console.WriteLine($"{i + 1}. {task.Title} - {(task.IsCompleted ? "completed" : "not completed")} [{task.Priority}]");
             }
         }
         else

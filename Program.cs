@@ -27,7 +27,9 @@ while (isRunning)
         case "1":
             Console.WriteLine("Enter the task title:");
             string addinput = Console.ReadLine() ?? "";
-            taskManager.AddTask(addinput);
+            Console.WriteLine("Choose a priority for the task (low, medium, high):");
+            string priorityInput = Console.ReadLine() ?? "";
+            taskManager.AddTask(addinput, priorityInput);
             break;
         case "2":
             Console.WriteLine("Enter the task number to complete:");
