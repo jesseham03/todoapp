@@ -15,7 +15,7 @@ class TaskManager
     //method to add a task to the list we created. Also stores the list in a json file after
     public void AddTask(string title, string priorityInput)
     {
-        if(title != "")
+        if(string.IsNullOrWhiteSpace(title) == false)
         {
             Priority priority = Priority.Medium;
             switch (priorityInput.ToLower())
@@ -60,10 +60,17 @@ class TaskManager
     //method to mark a task as completed, using index. Also stores the list in a json file after
     public void CompleteTask(string index)
     {
-        if(index != "")
+        if(string.IsNullOrWhiteSpace(index) == false)
         {
-            tasks[int.Parse(index) - 1].IsCompleted = true;
-            StorageService.SaveTasks(tasks, "tasks.json");
+            if(TryIndex(index, out int taskIndex))
+            {
+                tasks[taskIndex -1].IsCompleted = true;
+                StorageService.SaveTasks(tasks, "tasks.json");
+            }
+            else
+            {
+                Console.WriteLine("Invalid task index.");
+            }
         }
         else
         {
@@ -74,10 +81,17 @@ class TaskManager
     //method to delete a task, using index. Also stores the list in a json file after
     public void DeleteTask(string index)
     {
-        if(index != "")
+        if(string.IsNullOrWhiteSpace(index) == false)
         {
-            tasks.Remove(tasks[int.Parse(index) -1 ]);
-            StorageService.SaveTasks(tasks, "tasks.json");
+            if(TryIndex(index, out int taskIndex))
+            {
+                tasks.RemoveAt(taskIndex -1);
+                StorageService.SaveTasks(tasks, "tasks.json");
+            }
+            else
+            {
+                Console.WriteLine("Invalid task index.");
+            }
         }
         else
         {
@@ -87,10 +101,37 @@ class TaskManager
 
     public void EditTask(string index, string newTitle)
     {
-        if(index != "" && newTitle != "")
+        if(string.IsNullOrWhiteSpace(index) == false)
         {
-            tasks[int.Parse(index) -1].Title = newTitle;
-            StorageService.SaveTasks(tasks, "tasks.json");
+            if(TryIndex(index, out int taskIndex))
+            {
+                if(string.IsNullOrWhiteSpace(newTitle) == false)
+                {
+                    tasks[taskIndex -1 ].Title = newTitle;
+                    StorageService.SaveTasks(tasks, "tasks.json");
+                }
+                else
+                {
+                    Console.WriteLine("new task title cannot be empty.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid task index.");
+            }
+            
         }
+    }
+
+    private bool TryIndex(string input, out int index)
+    {
+        if(int.TryParse(input, out index))
+        {
+            if(index > 0 && index <= tasks.Count)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
