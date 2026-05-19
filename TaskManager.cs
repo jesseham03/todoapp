@@ -29,11 +29,19 @@ class TaskManager
     //method to show the tasks in the list, using index 
     public void ShowTasks()
     {
-        for (int i = 0; i < tasks.Count; i++)
+        if(tasks.Count != 0)
         {
+            for (int i = 0; i < tasks.Count; i++)
+            {
             var task = tasks[i];
             Console.WriteLine($"{i + 1}. {task.Title} - {(task.IsCompleted ? "completed" : "not completed")}");
+            }
         }
+        else
+        {
+            Console.WriteLine("No tasks yet.");
+        }
+        
     }
 
     //method to mark a task as completed, using index. Also stores the list in a json file after
@@ -61,6 +69,15 @@ class TaskManager
         else
         {
             Console.WriteLine("Task index cannot be empty.");
+        }
+    }
+
+    public void EditTask(string index, string newTitle)
+    {
+        if(index != "" && newTitle != "")
+        {
+            tasks[int.Parse(index) -1].Title = newTitle;
+            StorageService.SaveTasks(tasks, "tasks.json");
         }
     }
 }
