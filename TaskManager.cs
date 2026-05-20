@@ -121,8 +121,13 @@ class TaskManager
             }
             
         }
+        else
+        {
+            Console.WriteLine("Task index cannot be empty.");
+        }
     }
 
+    //method that checks if the input index is valid
     private bool TryIndex(string input, out int index)
     {
         if(int.TryParse(input, out index))
